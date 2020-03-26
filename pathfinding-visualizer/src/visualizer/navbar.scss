@@ -1,0 +1,18 @@
+section {
+    position: fixed;
+    top: 0;
+    background-color: #333;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    border-bottom: 2px solid black;
+    overflow: hidden;
+    p {
+        text-shadow: 1px 1px 1px orange;
+        font-size: 20px;
+        color: gray;
+        font-weight: 900;
+    }
+}
