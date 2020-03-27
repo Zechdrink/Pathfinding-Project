@@ -3,8 +3,16 @@
 .node {
     width: 1.5vw;
     height: 3vh;
-    border: 1px solid rgb(207, 128, 55);
+    border: 1px solid #000000;
     flex: 1 1 auto;
-    border-radius: .8rem;
     min-width: 0;
+    background: #353535;
+}
+
+.start-node {
+    background-color: rgba(145, 69, 18, 0.863);
+}
+
+.end-node {
+    background-color:#008080;
 }
