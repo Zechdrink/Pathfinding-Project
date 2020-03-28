@@ -13,6 +13,20 @@ section {
         font-size: 22px;
         color: #008080;
         font-weight: 500;
+        cursor: default;
+        user-select: none;
+
+        &:hover {
+            transform: scale(1.05, 1.05);
+            color: rgba(145, 69, 18, 0.863);
+            transition: 500ms ease;
+            text-decoration: underline;
+        }
+
+        &:active {
+            transform: scale(1, 1);
+            transition: 5ms ease;
+        }
         
     }
 }

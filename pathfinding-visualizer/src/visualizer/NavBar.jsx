@@ -9,7 +9,7 @@ class NavBar extends React.Component {
             <section>
                 <p> Algorithms </p>
                 <p> Run Algo </p>
-                <p> Clear </p>
+                <p onClick = {this.props.clear}> Clear </p>
                 <p> Speed </p>
                 <p> Toggle Lines </p>
                 <p> Dark Theme </p>

@@ -1,4 +1,11 @@
 
+@keyframes selected {
+    from {box-shadow: 1px 1px 2rem rgb(90, 16, 151)}
+    50% { transform: scale(1.3, 1.3)}
+    100% {transform: scale(1.7, 1.1)}
+    to {box-shadow: 0px 0px 0px black}
+}
+
 
 .node {
     width: 1.5vw;
@@ -16,3 +23,10 @@
 .end-node {
     background-color:#008080;
 }
+
+.selected-node {
+    animation-name: selected;
+    animation-duration: 250ms;
+    background-color: black;
+}
+
