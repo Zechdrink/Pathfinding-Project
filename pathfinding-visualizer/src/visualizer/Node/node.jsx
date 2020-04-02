@@ -13,14 +13,14 @@ class Node extends React.Component {
 
     render() {  
         
-        let { start, end, selected, row, col} = this.props
+        let { start, end, selected, row, col, gridLines} = this.props
 
         let specialClass = start ? 'start-node': end ? 'end-node': selected ? 'selected-node': '';
+        let lines = gridLines ? '': 'border-off';
 
         return ( 
-            <div className = {`node ${specialClass}`}
+            <div className = {`node ${specialClass} ${lines}`}
                  id = {`${row}-${col}`}
-                 selected = {selected}
                  onMouseDown = {() => {this.props.onMouseDown(row, col)}}
                  onMouseUp = {() => {this.props.onMouseUp()}}
                  onMouseEnter = {() => {this.props.onMouseEnter(row, col)}}

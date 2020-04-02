@@ -3,21 +3,40 @@ import Node from "./Node/Node"
 import NavBar from "./NavBar"
 import "./PFV.scss"
 
+var mouse = 0;
+
+
 class PathFindingVisualizer extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             nodes: [],
+
             startRow: 10,
             startCol: 29,
             endRow: 18,
             endCol: 40,
-            mouseIsPressed: false
+
+            mouseIsPressed: false,
+            gridLines: true
          }
         }
 
-        componentDidMount(){
-            this.drawGrid()
+        componentWillMount(){
+            const nodes = this.drawGrid()
+            this.setState({nodes})
+        }
+
+        removeGridLines = (e) => {
+            if(this.state.gridLines){
+                this.setState({
+                    gridLines: false
+                })
+            } else if(!this.state.gridLines){
+                this.setState({
+                    gridLines: true
+                })
+            }
         }
 
         makeNode = (row, col) => {
@@ -40,29 +59,11 @@ class PathFindingVisualizer extends React.Component {
             }
 
             newNodes[col][row] = updateNode;
-            
+
             return newNodes;
             
         }
-
-        handleMouseDown(row, col) {
-            console.log(typeof row,typeof col)
-            const newNodes = this.nodeSelector(row, col);
-            this.setState({nodes: newNodes, mouseIsPressed: true});
-          }
-
-        handleMouseUp() {
-            this.setState({mouseIsPressed: false});
-        }
         
-        handleMouseEnter(row, col) {
-            if (!this.state.mouseIsPressed) return;
-            const newNodes= this.nodeSelector(row, col);
-            this.setState({nodes: newNodes});
-          }
-    
-        
-         
         drawGrid = () => {
              let nodes = []
              for(let col = 0; col < 61; col++){
@@ -72,18 +73,63 @@ class PathFindingVisualizer extends React.Component {
                  }
                  nodes.push(newRow)
             }
-            this.setState({nodes})
+
+            return nodes
          }
+
+    
+        handleMouseDown(row, col) {
+            mouse = 1
+            if(mouse === 1){
+                if(document.getElementById(`${row}-${col}`).className.includes('selected-node')){
+                    document.getElementById(`${row}-${col}`).className = "node"
+                } 
+                else {
+                    document.getElementById(`${row}-${col}`).className = "node selected-node"
+                 }
+            }
+            const newNodes = this.nodeSelector(row, col);
+            this.setState({nodes: newNodes, mouseIsPressed: true});
+        }
+
+    //     mouse = 1
+    //     if(mouse === 1){
+    //         if(document.getElementById(`${row}-${col}`).className.includes('selected-node')){
+    //             document.getElementById(`${row}-${col}`).className = "node"
+    //         } else {
+    //             document.getElementById(`${row}-${col}`).className = "node selected-node"
+    //     }
+    //   }
+
+        handleMouseUp() {
+            mouse = 0;
+            this.setState({mouseIsPressed: false})
+        }
+        
+        handleMouseEnter(row, col) {
+        if(mouse === 1){
+            if(document.getElementById(`${row}-${col}`).className.includes('selected-node')){
+                document.getElementById(`${row}-${col}`).className = "node"
+             } 
+            else {
+                document.getElementById(`${row}-${col}`).className = "node selected-node"
+              }
+            }           
+         if(!this.state.mouseIsPressed) return ;
+         const newNodes = this.nodeSelector(row, col);
+         this.setState({nodes: newNodes, mouseIsPressed: true});
+          }
+    
 
     render() { 
         const {nodes} = this.state;
 
         return ( 
             <>
-            <NavBar clear = {this.drawGrid}/>
+            <NavBar clear = {this.drawGrid} removeGridLines = {this.removeGridLines}/>
             <div className = "board">
                 {nodes.map((row, ind) => {
-                    return <div>
+                    return <div key = {ind}>
                         {
                         row.map((node, nodeInd) => {
                         return(
@@ -93,10 +139,11 @@ class PathFindingVisualizer extends React.Component {
                               start = {node.start}
                               end = {node.end}
                               selected = {node.selected}
-                              nodeSelector = {this.nodeSelector}
+                            //   nodeSelector = {this.nodeSelector}
                               onMouseDown = {(row, col) => {this.handleMouseDown(node.row, node.col)}}
                               onMouseEnter = {(row, col) => {this.handleMouseEnter(node.row, node.col)}}
                               onMouseUp = {() => {this.handleMouseUp()}}
+                              gridLines = {this.state.gridLines}
                                />
                         )
                         }

@@ -11,8 +11,8 @@ class NavBar extends React.Component {
                 <p> Run Algo </p>
                 <p onClick = {this.props.clear}> Clear </p>
                 <p> Speed </p>
-                <p> Toggle Lines </p>
-                <p> Dark Theme </p>
+                <p onClick = {this.props.removeGridLines}> Toggle Lines </p>
+                <p> Themes </p>
             </section>
          );
     }
